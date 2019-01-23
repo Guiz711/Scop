@@ -1,35 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_max.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/11 17:10:45 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/01/04 14:42:38 by gmichaud         ###   ########.fr       */
+/*   Created: 2018/12/30 14:07:48 by mguerrea          #+#    #+#             */
+/*   Updated: 2018/12/31 13:57:21 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strrchr(const char *s, int c)
+int		ft_max(int a, int b)
 {
-	char	c1;
-	int		len;
-
-	c1 = (char)c;
-	len = 0;
-	while (*s)
-	{
-		len++;
-		s++;
-	}
-	while (len >= 0)
-	{
-		if (*s == c1)
-			return ((char*)s);
-		s--;
-		len--;
-	}
-	return (NULL);
+	if (a > b)
+		return (a);
+	return (b);
 }

@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   scop.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/06 10:27:39 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/12/31 12:51:47 by gmichaud         ###   ########.fr       */
+/*   Created: 2018/12/15 15:40:01 by gmichaud          #+#    #+#             */
+/*   Updated: 2019/01/06 16:20:43 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef SCOPE_H
+# define SCOPE_H
 
-int		ft_atoi(const char *s)
+# include <OpenGL/gl3.h>
+# include "libft.h"
+# include <stdio.h>
+# include <time.h>
+# include "mlx.h"
+# include "mlx_opengl.h"
+
+typedef struct		s_env
 {
-	int flag;
-	int res;
-	int i;
+	void			*init;
+	void			*win;
+	int				win_width;
+	int				win_height;
+	unsigned int	vao;
+	int				shader_program;
+}					t_env;
 
-	flag = 0;
-	res = 0;
-	i = 0;
-	while ((s[i] == ' ' || (s[i] >= 9 && s[i] <= 13)) && s[i])
-		i++;
-	if (s[i] == '-' || s[i] == '+')
-	{
-		flag = i;
-		i++;
-	}
-	while (s[i] >= '0' && s[i] <= '9')
-	{
-		res = res * 10 + (s[i] - 48);
-		i++;
-	}
-	if (s[flag] == '-')
-		res = -res;
-	return (res);
-}
+#endif

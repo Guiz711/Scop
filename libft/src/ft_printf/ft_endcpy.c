@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_endcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/11 17:10:45 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/01/04 14:42:38 by gmichaud         ###   ########.fr       */
+/*   Created: 2018/12/31 15:48:27 by mguerrea          #+#    #+#             */
+/*   Updated: 2018/12/31 17:08:26 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_endcpy(char *dest, char *src, int n)
 {
-	char	c1;
-	int		len;
+	int j;
 
-	c1 = (char)c;
-	len = 0;
-	while (*s)
+	j = ft_strlen(src) - 1;
+	while (n >= 0)
 	{
-		len++;
-		s++;
+		dest[n] = src[j];
+		n--;
+		j--;
 	}
-	while (len >= 0)
-	{
-		if (*s == c1)
-			return ((char*)s);
-		s--;
-		len--;
-	}
-	return (NULL);
+	return (dest);
 }

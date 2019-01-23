@@ -1,39 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   vec_add.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/06 10:27:39 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/12/31 12:51:47 by gmichaud         ###   ########.fr       */
+/*   Created: 2017/12/21 11:25:54 by gmichaud          #+#    #+#             */
+/*   Updated: 2017/12/22 11:03:47 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "vectors.h"
 
-int		ft_atoi(const char *s)
+t_vec2	add_vec2(t_vec2 u, t_vec2 v)
 {
-	int flag;
-	int res;
-	int i;
+	t_vec2	res;
 
-	flag = 0;
-	res = 0;
-	i = 0;
-	while ((s[i] == ' ' || (s[i] >= 9 && s[i] <= 13)) && s[i])
-		i++;
-	if (s[i] == '-' || s[i] == '+')
-	{
-		flag = i;
-		i++;
-	}
-	while (s[i] >= '0' && s[i] <= '9')
-	{
-		res = res * 10 + (s[i] - 48);
-		i++;
-	}
-	if (s[flag] == '-')
-		res = -res;
+	res.x = u.x + v.x;
+	res.y = u.y + v.y;
+	return (res);
+}
+
+t_vec3	add_vec3(t_vec3 u, t_vec3 v)
+{
+	t_vec3	res;
+
+	res.x = u.x + v.x;
+	res.y = u.y + v.y;
+	res.z = u.z + v.z;
+	return (res);
+}
+
+t_vec4	add_vec4(t_vec4 u, t_vec4 v)
+{
+	t_vec4	res;
+
+	res.x = u.x + v.x;
+	res.y = u.y + v.y;
+	res.z = u.z + v.z;
+	res.w = 0;
 	return (res);
 }

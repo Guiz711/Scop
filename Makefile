@@ -6,15 +6,15 @@
 #    By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/19 14:03:15 by jgourdin          #+#    #+#              #
-#    Updated: 2018/12/15 18:11:27 by gmichaud         ###   ########.fr        #
+#    Updated: 2019/01/23 14:46:29 by gmichaud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = a.out
+NAME = scop
 
-INC_FLAGS = -I./includes -I./libft/includes -I./minilibx_macos
+INC_FLAGS = -I./includes -I./libft/includes -I./minilibx_macos -I./mlxext/includes
 
-INC_NAME = scope.h
+INC_NAME = scop.h shader.h error.h
 
 INC_PATH = ./includes
 
@@ -28,7 +28,7 @@ CFLAGS = #-Wall -Wextra -Werror
 
 SRC_PATH = src
 
-SRC_NAME = main.c
+SRC_NAME = error.c shader.c shader_error.c main.c 
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
@@ -50,13 +50,13 @@ $(NAME): $(OBJ)
 	@$(CC) -o $@ $(OBJ) $(LIB_FLAGS) $(LIBS)
 	@echo "$(GREEN)[$(NAME)] Compilation success"
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(INC)
-	@mkdir $(OBJ_PATH) 2> /dev/null || true
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c #$(INC)
+	@mkdir -p $(OBJ_PATH) #2> /dev/null || true
 	@$(CC) $(CFLAGS) $(INC_FLAGS) -o $@ -c $< 
 
 clean:
-	@/bin/rm -f $(OBJ)
-	@rmdir $(OBJ_PATH) 2> /dev/null || true
+	@/bin/rm -f $(OBJ) 2> /dev/null || true
+	@/bin/rm -r $(OBJ_PATH) 2> /dev/null || true
 	@echo "$(GREEN)[$(NAME)] .o files deleted"
 	@make -C ./libft clean --no-print-directory
 	@make -C ./minilibx_macos clean --no-print-directory

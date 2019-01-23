@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/06 10:27:39 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/12/31 12:51:47 by gmichaud         ###   ########.fr       */
+/*   Created: 2019/01/04 11:35:58 by gmichaud          #+#    #+#             */
+/*   Updated: 2019/01/04 19:49:45 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef ERROR_H
+# define ERROR_H
 
-int		ft_atoi(const char *s)
-{
-	int flag;
-	int res;
-	int i;
+# include "libft.h"
+# include <stdio.h>
 
-	flag = 0;
-	res = 0;
-	i = 0;
-	while ((s[i] == ' ' || (s[i] >= 9 && s[i] <= 13)) && s[i])
-		i++;
-	if (s[i] == '-' || s[i] == '+')
-	{
-		flag = i;
-		i++;
-	}
-	while (s[i] >= '0' && s[i] <= '9')
-	{
-		res = res * 10 + (s[i] - 48);
-		i++;
-	}
-	if (s[flag] == '-')
-		res = -res;
-	return (res);
-}
+void	*malloc_error(void *ptr);
+int		malloc_error_int(void *ptr);
+void	*throw_error(void *ptr, char *str);
+int		custom_error_int(void *ptr, const char *err);
+
+#endif

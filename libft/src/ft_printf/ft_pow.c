@@ -1,35 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_pow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/11 17:10:45 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/01/04 14:42:38 by gmichaud         ###   ########.fr       */
+/*   Created: 2018/12/31 13:41:01 by mguerrea          #+#    #+#             */
+/*   Updated: 2018/12/31 13:41:15 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strrchr(const char *s, int c)
+double		ft_pow(int x, int y)
 {
-	char	c1;
-	int		len;
-
-	c1 = (char)c;
-	len = 0;
-	while (*s)
-	{
-		len++;
-		s++;
-	}
-	while (len >= 0)
-	{
-		if (*s == c1)
-			return ((char*)s);
-		s--;
-		len--;
-	}
-	return (NULL);
+	if (!y)
+		return (1);
+	return (x * ft_pow(x, --y));
 }
