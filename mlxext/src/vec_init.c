@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/21 13:05:43 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/01/23 16:56:32 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/02/15 13:47:03 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,48 @@
 
 /*
 ** The ft_init_vecx functions are initializing t_vec structs
-** containing 3D or 4D vector coordinates.
+** containing 2D, 3D or 4D vector coordinates.
 ** Returns an initialized vector type struct.
 */
 
-void	init_vec3(double x, double y, double z, t_vec3 dest)
+t_vec2	init_vec2(float x, float y)
 {
-	dest[0] = x;
-	dest[1] = y;
-	dest[2] = z;
+	t_vec2	dest;
+
+	dest.x = x;
+	dest.y = y;
+	return (dest);
 }
 
-void	copy_vec3(t_vec3 src, t_vec3 dest)
+t_vec3	init_vec3(float x, float y, float z)
 {
-	dest[0] = src[0];
-	dest[1] = src[1];
-	dest[2] = src[2];
+	t_vec3	dest;
+
+	dest.x = x;
+	dest.y = y;
+	dest.z = z;
+	return (dest);
 }
 
-void	init_vec4(t_vec3 src, double w, t_vec4 dest)
+t_vec4	init_vec4(float x, float y, float z, float w)
 {
-	dest[0] = src[0];
-	dest[1] = src[1];
-	dest[2] = src[2];
-	dest[3] = w;
+	t_vec4	dest;
+	
+	dest.x = x;
+	dest.y = y;
+	dest.z = z;
+	dest.w = w;
 }
 
-void	copy_vec4(t_vec4 src, t_vec4 dest)
+t_vec4	vec3_to_vec4(t_vec3 src, double w)
 {
-	dest[0] = src[0];
-	dest[1] = src[1];
-	dest[2] = src[2];
-	dest[3] = src[3];
+	t_vec4	dest;
+
+	dest.x = src.x;
+	dest.y = src.y;
+	dest.z = src.z;
+	dest.w = w;
+	return (dest);
 }
 
-void	vec4_to_vec3(t_vec4 src, t_vec3 dest)
-{
-	dest[0] = src[0];
-	dest[1] = src[1];
-	dest[2] = src[2];
-}
+

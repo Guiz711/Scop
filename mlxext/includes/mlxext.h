@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 20:07:48 by jgourdin          #+#    #+#             */
-/*   Updated: 2019/01/23 16:52:14 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/02/15 14:24:39 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define VECTORS_H
 
 # include <math.h>
+# include <stdbool.h>
+# include <float.h>
 
 typedef enum	e_axis
 {
@@ -22,47 +24,115 @@ typedef enum	e_axis
 	Z,
 }				t_axis;
 
-// typedef struct	s_vec2
-// {
-// 	double		x;
-// 	double		y;
-// }				t_vec2;
+typedef union 	u_vec2
+{
+	float		elem[2];
+	struct
+	{
+		float	x;
+		float	y;
+	};
+	struct
+	{
+		float	u;
+		float	v;
+	};
+	struct
+	{
+		float	width;
+		float	height;
+	};
+}				t_vec2;
 
-// typedef struct	s_vec3
-// {
-// 	double		x;
-// 	double		y;
-// 	double		z;
-// }				t_vec3;
+typedef union	u_vec3
+{
+	float		elem[3];
+	struct
+	{
+		float	x;
+		float	y;
+		float	z;
+	};
+	struct
+	{
+		float	u;
+		float	v;
+		float	w;
+	};
+	struct
+	{
+		float	r;
+		float	g;
+		float	b;
+	};
+}				t_vec3;
 
-// typedef struct	s_vec4
-// {
-// 	double		x;
-// 	double		y;
-// 	double		z;
-// 	double		w;
-// }				t_vec4;
+typedef union	u_vec4
+{
+	float		elem[4];
+	struct
+	{
+		float	x;
+		float	y;
+		float	z;
+		float	w;
+	};
+	struct
+	{
+		float	r;
+		float	g;
+		float	b;
+		float	a;
+	};
+}				t_vec4;
 
-// typedef struct	s_mtx4
-// {
-// 	double		a[4];
-// 	double		b[4];
-// 	double		c[4];
-// 	double		d[4];
-// }				t_mtx4;
+typedef struct	s_mtx4
+{
+	float		elem[4][4];
+}				t_mat4;
 
-typedef float	t_vec3[3];
-typedef float	t_vec4[4];
-typedef t_vec3	t_mtx3[4];
-typedef t_vec4	t_mtx4[4];
+/*
+** Float functions
+*/
+
+bool			fequals(float a, float b);
+float			lerp(float a, float b, float time);
 
 /*
 ** Vector functions
 */
 
-void	init_vec3(double x, double y, double z, t_vec3 dest);
-void	init_vec4(t_vec3 src, double w, t_vec4 dest);
-void	vec4_to_vec3(t_vec4 src, t_vec3 dest);
+t_vec2			init_vec2(float x, float y);
+t_vec3			init_vec3(float x, float y, float z);
+t_vec4			init_vec4(float x, float y, float z, float w);
+t_vec4			vec3_to_vec4(t_vec3 src, double w);
+
+float			v2_magnitude(t_vec2 v);
+float			v2_sqrmagnitude(t_vec2 v);
+t_vec2			v2_normalize(t_vec2 v);
+t_vec2			v2_v2_mult(t_vec2 u, t_vec2 v);
+t_vec2			v2_f_mult(t_vec2 v, float f);
+double			v2_dot(t_vec2 u, t_vec2 v);
+
+float			v3_magnitude(t_vec3 v);
+float			v3_sqrmagnitude(t_vec3 v);
+t_vec3			v3_normalize(t_vec3 v);
+t_vec3			v3_v3_mult(t_vec3 u, t_vec3 v);
+t_vec3			v3_f_mult(t_vec3 v, float f);
+double			v3_dot(t_vec3 u, t_vec3 v);
+t_vec3			v3_cross(t_vec3 u, t_vec3 v);
+
+float			v4_magnitude(t_vec4 v);
+float			v4_sqrmagnitude(t_vec4 v);
+t_vec4			v4_normalize(t_vec4 v);
+t_vec4			v4_add(t_vec4 u, t_vec4 v);
+t_vec4			v4_substract(t_vec4 u, t_vec4 v);
+t_vec4			v4_v4_mult(t_vec4 u, t_vec4 v);
+t_vec4			v4_f_mult(t_vec4 v, float f);
+double			v4_dot(t_vec4 u, t_vec4 v);
+t_vec4			v4_divide(t_vec4 u, t_vec4 v);
+bool			v4_equals(t_vec4 u, t_vec4 v);
+
 
 // t_vec2			add_vec2(t_vec2 u, t_vec2 v);
 // t_vec3			add_vec3(t_vec3 u, t_vec3 v);
@@ -75,21 +145,6 @@ void	vec4_to_vec3(t_vec4 src, t_vec3 dest);
 // t_vec2			rev_vec2(t_vec2 u);
 // t_vec3			rev_vec3(t_vec3 u);
 // t_vec4			rev_vec4(t_vec4 u);
-
-// t_vec4			normalize_vec4(t_vec4 v);
-// double			norm_vec4(t_vec4 v);
-
-// t_vec4			cross_vec3(t_vec3 u, t_vec3 v);
-// t_vec4			cross_vec4(t_vec4 u, t_vec4 v);
-
-// double			dot_vec3(t_vec3 u, t_vec3 v);
-// double			dot_vec4(t_vec4 u, t_vec4 v);
-
-// t_vec3			dmult_vec3(t_vec3 u, double n);
-// t_vec4			dmult_vec4(t_vec4 u, double n);
-
-// t_vec3			mult_vec3(t_vec3 u, t_vec3 v);
-// t_vec4			mult_vec4(t_vec4 u, t_vec4 v);
 
 /*
 ** Matrix functions
