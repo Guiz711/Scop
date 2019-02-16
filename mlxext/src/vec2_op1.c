@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec2_op1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmichaud <gmichaud@student.42,fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:43:46 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/02/15 13:44:36 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/02/15 16:55:12 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,22 @@ t_vec2	v2_normalize(t_vec2 v)
 		v.y /= length;
 	}
 	return (v);
+}
+
+t_vec2	v2_add(t_vec2 u, t_vec2 v)
+{
+	t_vec2	res;
+
+	res.x = u.x + v.x;
+	res.y = u.y + v.y;
+	return (res);
+}
+
+t_vec2	v2_substract(t_vec2 u, t_vec2 v)
+{
+	t_vec2	res;
+
+	res.x = u.x - v.x;
+	res.y = u.y - v.y;
+	return (res);
 }

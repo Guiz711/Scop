@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlxext.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmichaud <gmichaud@student.42,fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 20:07:48 by jgourdin          #+#    #+#             */
-/*   Updated: 2019/02/15 14:24:39 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/02/15 17:02:45 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef union	u_vec4
 typedef struct	s_mtx4
 {
 	float		elem[4][4];
-}				t_mat4;
+}				t_mtx4;
 
 /*
 ** Float functions
@@ -110,16 +110,24 @@ t_vec4			vec3_to_vec4(t_vec3 src, double w);
 float			v2_magnitude(t_vec2 v);
 float			v2_sqrmagnitude(t_vec2 v);
 t_vec2			v2_normalize(t_vec2 v);
+t_vec2			v2_add(t_vec2 u, t_vec2 v);
+t_vec2			v2_substract(t_vec2 u, t_vec2 v);
 t_vec2			v2_v2_mult(t_vec2 u, t_vec2 v);
 t_vec2			v2_f_mult(t_vec2 v, float f);
 double			v2_dot(t_vec2 u, t_vec2 v);
+t_vec2			v2_divide(t_vec2 u, t_vec2 v);
+bool			v2_equals(t_vec2 u, t_vec2 v);
 
 float			v3_magnitude(t_vec3 v);
 float			v3_sqrmagnitude(t_vec3 v);
 t_vec3			v3_normalize(t_vec3 v);
+t_vec3			v3_add(t_vec3 u, t_vec3 v);
+t_vec3			v3_substract(t_vec3 u, t_vec3 v);
 t_vec3			v3_v3_mult(t_vec3 u, t_vec3 v);
 t_vec3			v3_f_mult(t_vec3 v, float f);
 double			v3_dot(t_vec3 u, t_vec3 v);
+t_vec3			v3_divide(t_vec3 u, t_vec3 v);
+bool			v3_equals(t_vec3 u, t_vec3 v);
 t_vec3			v3_cross(t_vec3 u, t_vec3 v);
 
 float			v4_magnitude(t_vec4 v);
@@ -132,19 +140,6 @@ t_vec4			v4_f_mult(t_vec4 v, float f);
 double			v4_dot(t_vec4 u, t_vec4 v);
 t_vec4			v4_divide(t_vec4 u, t_vec4 v);
 bool			v4_equals(t_vec4 u, t_vec4 v);
-
-
-// t_vec2			add_vec2(t_vec2 u, t_vec2 v);
-// t_vec3			add_vec3(t_vec3 u, t_vec3 v);
-// t_vec4			add_vec4(t_vec4 u, t_vec4 v);
-
-// t_vec2			sub_vec2(t_vec2 u, t_vec2 v);
-// t_vec3			sub_vec3(t_vec3 u, t_vec3 v);
-// t_vec4			sub_vec4(t_vec4 u, t_vec4 v);
-
-// t_vec2			rev_vec2(t_vec2 u);
-// t_vec3			rev_vec3(t_vec3 u);
-// t_vec4			rev_vec4(t_vec4 u);
 
 /*
 ** Matrix functions
