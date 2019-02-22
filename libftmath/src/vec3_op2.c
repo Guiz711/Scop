@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vec3_op2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmichaud <gmichaud@student.42,fr>          +#+  +:+       +#+        */
+/*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:42:09 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/02/15 16:58:07 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/02/22 11:15:18 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlxext.h"
+#include "libftmath.h"
 
 t_vec3	v3_v3_mult(t_vec3 u, t_vec3 v)
 {

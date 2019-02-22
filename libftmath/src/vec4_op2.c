@@ -6,11 +6,11 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:39:19 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/02/15 14:18:05 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/02/22 11:15:24 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlxext.h"
+#include "libftmath.h"
 
 t_vec4	v4_v4_mult(t_vec4 u, t_vec4 v)
 {

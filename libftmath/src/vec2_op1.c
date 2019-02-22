@@ -1,18 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec_add.c                                          :+:      :+:    :+:   */
+/*   vec2_op1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/21 11:25:54 by gmichaud          #+#    #+#             */
-/*   Updated: 2017/12/22 11:03:47 by gmichaud         ###   ########.fr       */
+/*   Created: 2019/02/15 13:43:46 by gmichaud          #+#    #+#             */
+/*   Updated: 2019/02/22 13:07:17 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vectors.h"
+#include "libftmath.h"
 
-t_vec2	add_vec2(t_vec2 u, t_vec2 v)
+float	v2_magnitude(t_vec2 v)
+{
+	return (sqrt(v.x * v.x + v.y * v.y));
+}
+
+float	v2_sqrmagnitude(t_vec2 v)
+{
+	return (v.x * v.x + v.y * v.y);
+}
+
+t_vec2	v2_normalize(t_vec2 v)
+{
+	float	sqrlen;
+	float	invlen;
+
+	sqrlen = (v.x * v.x + v.y * v.y);
+	if (sqrlen)
+	{
+		invlen = fisqrt(sqrlen);
+		v.x *= invlen;
+		v.y *= invlen;
+	}
+	return (v);
+}
+
+t_vec2	v2_add(t_vec2 u, t_vec2 v)
 {
 	t_vec2	res;
 
@@ -21,23 +46,11 @@ t_vec2	add_vec2(t_vec2 u, t_vec2 v)
 	return (res);
 }
 
-t_vec3	add_vec3(t_vec3 u, t_vec3 v)
+t_vec2	v2_substract(t_vec2 u, t_vec2 v)
 {
-	t_vec3	res;
+	t_vec2	res;
 
-	res.x = u.x + v.x;
-	res.y = u.y + v.y;
-	res.z = u.z + v.z;
-	return (res);
-}
-
-t_vec4	add_vec4(t_vec4 u, t_vec4 v)
-{
-	t_vec4	res;
-
-	res.x = u.x + v.x;
-	res.y = u.y + v.y;
-	res.z = u.z + v.z;
-	res.w = 0;
+	res.x = u.x - v.x;
+	res.y = u.y - v.y;
 	return (res);
 }

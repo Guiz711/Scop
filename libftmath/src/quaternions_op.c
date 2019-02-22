@@ -6,13 +6,13 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:44:36 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/01/30 11:47:26 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/02/22 13:24:08 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vectors.h"
+#include "libftmath.h"
 
-double	norm_quat(t_vec4 q)
+double	quat_norm(t_quat q)
 {
 	double norm;
 
@@ -20,30 +20,26 @@ double	norm_quat(t_vec4 q)
 	return (norm);
 }
 
-t_vec4	normalize_quat(t_vec4 q)
+t_quat	quat_normalize(t_quat q)
 {
-	double	norm;
+	float	sqrlen;
+	float	invlen;
 
-	norm = norm_vec4(q);
-	if (norm)
+	sqrlen = (q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w);
+	if (sqrlen)
 	{
-		q.x = q.x / norm;
-		q.y = q.y / norm;
-		q.z = q.z / norm;
+		invlen = fisqrt(sqrlen);
+		q.x *= invlen;
+		q.y *= invlen;
+		q.z *= invlen;
+		q.w *= invlen;
 	}
-	else
-	{
-		q.x = 0;
-		q.y = 0;
-		q.z = 0;
-	}
-	q.w = 0;
 	return (q);
 }
 
-t_vec4	mult_quat(t_vec4 q1, t_vec4 q2)
+t_quat	quat_mult(t_quat q1, t_quat q2)
 {
-	t_vec4	qr;
+	t_quat	qr;
 
 	qr.x = q1.w * q2.x + q1.x * q2.w + q1.y * q2.z - q1.z * q2.y;
 	qr.y = q1.w * q2.y + q1.y * q2.w + q1.z * q2.x - q1.x * q2.z;

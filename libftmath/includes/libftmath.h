@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlxext.h                                           :+:      :+:    :+:   */
+/*   libftmath.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 20:07:48 by jgourdin          #+#    #+#             */
-/*   Updated: 2019/02/22 09:53:16 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/02/22 15:15:03 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTORS_H
-# define VECTORS_H
+#ifndef LIBFTMATH_H
+# define LIBFTMATH_H
 
 # include <math.h>
 # include <stdbool.h>
 # include <float.h>
+# include <stdint.h>
+
+# define DEG2RAD (M_PI * 2.0f / 360.0f)
 
 typedef enum	e_axis
 {
@@ -23,6 +26,12 @@ typedef enum	e_axis
 	Y,
 	Z,
 }				t_axis;
+
+typedef union	e_fisqrt_conv
+{
+	float		f;
+	uint32_t	i;
+}				t_fisqrt_conv;
 
 typedef union 	u_vec2
 {
@@ -89,14 +98,17 @@ typedef union	u_vec4
 typedef struct	s_mtx4
 {
 	float		elem[4][4];
+	t_vec4		vec[4];
 }				t_mtx4;
 
+typedef t_vec4	t_quat;
 /*
 ** Float functions
 */
 
 bool			fequals(float a, float b);
 float			lerp(float a, float b, float time);
+float			fisqrt(float n);
 
 /*
 ** Vector functions
@@ -145,22 +157,23 @@ bool			v4_equals(t_vec4 u, t_vec4 v);
 ** Matrix functions
 */
 
-// t_mtx4			identity(void);
-// t_mtx4			scale(double pitch_x, double pitch_y, double pitch_z);
-// t_mtx4			translate(double t_x, double t_y, double t_z);
-// t_mtx4			rotate(t_axis axis, double pitch);
-// t_mtx4			mtx4_mult(t_mtx4 m1, t_mtx4 m2);
-// t_vec4			new_coord(t_vec4 p, t_mtx4 mtx);
+t_mtx4			mtx_identity(void);
+t_mtx4			mtx_translation(t_vec3 value);
+t_mtx4			mtx_rotation(t_axis axis, float angle);
+t_mtx4			mtx_scale(t_vec3 factor);
+t_mtx4			mtx_transpose(t_mtx4 matrix);
+t_mtx4			mtx4_mult(t_mtx4 lhs, t_mtx4 rhs);
+t_mtx4			quat_to_mtx(t_vec4 q);
 
 /*
 ** Quaternion functions
 */
 
-// t_vec4			axisangle_to_quat(t_vec4 axis, double angle);
-// t_vec4			euler_to_quat(t_vec3 rot);
-// double			norm_quat(t_vec4 q);
-// t_vec4			normalize_quat(t_vec4 q);
-// t_vec4			mult_quat(t_vec4 q1, t_vec4 q2);
-// t_mtx4			quat_to_mtx(t_vec4	q);
+double			quat_norm(t_quat q);
+t_quat			quat_normalize(t_quat q);
+t_quat			quat_mult(t_quat q1, t_quat q2);
+t_quat			axisangle_to_quat(t_vec4 axis, double angle);
+t_quat			euler_to_quat(t_vec3 rot);
+t_quat			quat_lerp(t_quat start, t_quat end, float t);
 
 #endif

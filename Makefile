@@ -6,21 +6,23 @@
 #    By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/19 14:03:15 by jgourdin          #+#    #+#              #
-#    Updated: 2019/01/23 14:46:29 by gmichaud         ###   ########.fr        #
+#    Updated: 2019/02/22 11:17:42 by gmichaud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = scop
 
-INC_FLAGS = -I./includes -I./libft/includes -I./minilibx_macos -I./mlxext/includes
+INC_FLAGS = -I./includes -I./libft/includes -I./libftmath/includes \
+	-I./minilibx_macos -I./mlxext/includes
 
 INC_NAME = scop.h shader.h error.h
 
 INC_PATH = ./includes
 
-LIB_FLAGS = -L./libft -L./minilibx_macos -L/System/Library/Frameworks
+LIB_FLAGS = -L./libft -L./libftmath -L./minilibx_macos \
+	-L/System/Library/Frameworks
 
-LIBS = -lft -lmlx -lm -framework OpenGL -framework Appkit
+LIBS = -lft -lftmath -lmlx -lm -framework OpenGL -framework Appkit
 
 CC = clang
 
@@ -47,6 +49,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make -C ./minilibx_macos --no-print-directory
 	@make -C ./libft --no-print-directory
+	@make -C ./libftmath --no-print-directory
 	@$(CC) -o $@ $(OBJ) $(LIB_FLAGS) $(LIBS)
 	@echo "$(GREEN)[$(NAME)] Compilation success"
 
@@ -59,6 +62,7 @@ clean:
 	@/bin/rm -r $(OBJ_PATH) 2> /dev/null || true
 	@echo "$(GREEN)[$(NAME)] .o files deleted"
 	@make -C ./libft clean --no-print-directory
+	@make -C ./libftmath clean --no-print-directory
 	@make -C ./minilibx_macos clean --no-print-directory
 
 fclean: clean
@@ -66,6 +70,7 @@ fclean: clean
 	@/bin/rm -f $(LINKNAME)
 	@echo  "$(GREEN)[$(NAME)] executable file deleted"
 	@make -C ./libft fclean --no-print-directory
+	@make -C ./libftmath fclean --no-print-directory
 	@make -C ./minilibx_macos fclean --no-print-directory
 
 re: fclean $(NAME)

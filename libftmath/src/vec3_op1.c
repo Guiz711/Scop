@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vec3_op1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmichaud <gmichaud@student.42,fr>          +#+  +:+       +#+        */
+/*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:40:09 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/02/15 16:57:30 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/02/22 13:08:13 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlxext.h"
+#include "libftmath.h"
 
 float	v3_magnitude(t_vec3 v)
 {
@@ -24,14 +24,16 @@ float	v3_sqrmagnitude(t_vec3 v)
 
 t_vec3	v3_normalize(t_vec3 v)
 {
-	float	length;
+	float	sqrlen;
+	float	invlen;
 
-	length = v3_magnitude(v);
-	if (length)
+	sqrlen = (v.x * v.x + v.y * v.y + v.z * v.z);
+	if (sqrlen)
 	{
-		v.x /= length;
-		v.y /= length;
-		v.z /= length;
+		invlen = fisqrt(sqrlen);
+		v.x *= invlen;
+		v.y *= invlen;
+		v.z *= invlen;
 	}
 	return (v);
 }

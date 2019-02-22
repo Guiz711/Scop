@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 11:15:48 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/01/20 12:07:25 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/02/22 17:48:44 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	compile_shader(char *shader_source, GLenum type)
 	if (!(shader_id = glCreateShader(type)))
 		return (custom_error_int(shader_source, SHD_ERR_CREATE));
 	glShaderSource(shader_id, 1, (const char**)&shader_source, NULL);
-	ft_printf("test3 %s \n", shader_source);
+	// ft_printf("test3 %s \n", shader_source);
 	glCompileShader(shader_id);
 	free(shader_source);
 	glGetShaderiv(shader_id, GL_COMPILE_STATUS, &success);
@@ -115,7 +115,7 @@ int		init_shader(char *file, int shader_program)
 		return (shader_extension_error(extension));
 	if (!(shader_source = read_shader(file)))
 		return (0);
-	ft_printf("test shader %s \n", shader_source);
+	// ft_printf("test shader %s \n", shader_source);
 	if (!(shader_id = compile_shader(shader_source, shader_type)))
 		return (0);
 	shader_program = attach_shader(shader_id, shader_program);

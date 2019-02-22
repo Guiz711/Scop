@@ -6,13 +6,13 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 16:58:57 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/01/23 16:30:24 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/02/22 17:54:16 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 #include "shader.h"
-#include "vectors.h"
+#include "mlx_events.h"
 
 const char* vertex_shader = "#version 410 core\n"
 "layout (location = 0) in vec3 aPos;\n"
@@ -41,12 +41,12 @@ float vertices[] = {
 // 	0.5, 0, 0, 1
 // };
 
-t_mtx4 matrix = {
-	{1, 0, 0, 0},
-	{0, 1, 0, 0},
-	{0, 0, 1, 0},
-	{0.5, 0, 0, 1}
-};
+// t_mtx4 matrix = {
+// 	{1, 0, 0, 0},
+// 	{0, 1, 0, 0},
+// 	{0, 0, 1, 0},
+// 	{0.5, 0, 0, 1}
+// };
 
 // unsigned int indices[] = {
 // 	0, 1, 2
@@ -56,6 +56,9 @@ int		init_env(t_env *env)
 {
 	env->win_height = 920;
 	env->win_width = 1080;
+	env->quit = false;
+	env->middle = 0;
+	env->mouse_pos = init_vec2(0, 0);
 	if (!(env->init = mlx_init()))
 		return (0);
 	if (!(env->win = mlx_new_opengl_window(env->init, env->win_width,
@@ -124,14 +127,13 @@ double	get_time(void)
 
 void init_opengl(t_env *env)
 {
-	unsigned int vbo;
 	// unsigned int ebo;
 
 	glGenVertexArrays(1, &(env->vao));
-	glGenBuffers(1, &vbo);
+	glGenBuffers(1, &env->vbo);
 	// glGenBuffers(1, &ebo);
 	glBindVertexArray(env->vao);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, env->vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	// glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	// glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
@@ -172,24 +174,46 @@ int init_shaders(t_env *env)
 	return 1;
 }
 
-int loop(void *args)
+void quit(t_env *env)
 {
-	t_env	*env;
-	int		success;
-	char	info[512];
+	glDeleteVertexArrays(1, &env->vao);
+	glDeleteBuffers(1, &env->vbo);
+	mlx_destroy_window(env->init, env->win);
+	exit(EXIT_SUCCESS);
+}
 
-	env = (t_env*)args;
-	glClearColor(0.1f, 0.3f, 0.3f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	// glUseProgram(env->shader_program);
-	// printf("%f\n", sin(get_time() * 2) / 2.0f + 0.5f);
-	// set_uniform_float(env->shader_program, "test", sin(get_time()) / 2.0f + 0.5f);
-	set_uniform_mat4(env->shader_program, "transform", (float*)matrix);
-	glBindVertexArray(env->vao);
-	// glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-	mlx_opengl_swap_buffers(env->win);
-	return 1;
+int mouse_move(int x, int y, void *param)
+{
+	((t_env*)param)->mouse_pos.x = x;
+	((t_env*)param)->mouse_pos.y = x;
+	return (0);
+}
+
+int key_press(int keycode, void *param)
+{
+	if (keycode == KEY_ESCAPE)
+	{
+		((t_env*)param)->quit = true;
+	}
+	return (0);
+}
+
+int mouse_press(int button, int x, int y, void *param)
+{
+	if (button == MOUSE_MIDDLE)
+	{
+		((t_env*)param)->middle = 1;
+	}
+	return (0);
+}
+
+int mouse_release(int button, int x, int y, void *param)
+{
+	if (button == MOUSE_MIDDLE)
+	{
+		((t_env*)param)->middle = 0;
+	}
+	return (0);
 }
 
 int main(int argc, char **argv)
@@ -211,6 +235,10 @@ int main(int argc, char **argv)
 	if (!link_shader_program(env.shader_program))
 		return (0);
 	init_opengl(&env);
+	mlx_hook(env.win, MOTION_NOTIFY, 0, mouse_move, (void*)&env);
+	mlx_hook(env.win, KEY_PRESS, 0, key_press, (void*)&env);
+	mlx_hook(env.win, BUTTON_PRESS, 0, mouse_press, (void*)&env);
+	mlx_hook(env.win, BUTTON_RELEASE, 0, mouse_release, (void*)&env);
 	mlx_loop_hook(env.init, &loop, (void*)&env);
 	mlx_loop(env.init);
 	return (0);

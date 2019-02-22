@@ -1,43 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec_sub.c                                          :+:      :+:    :+:   */
+/*   keytable_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/22 11:44:30 by gmichaud          #+#    #+#             */
-/*   Updated: 2017/12/22 11:45:54 by gmichaud         ###   ########.fr       */
+/*   Created: 2019/02/22 18:13:13 by gmichaud          #+#    #+#             */
+/*   Updated: 2019/02/22 19:05:32 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vectors.h"
+#include "keytable.h"
 
-t_vec2	sub_vec2(t_vec2 u, t_vec2 v)
+unsigned int	hashkey(t_keytable *kt, unsigned int key)
 {
-	t_vec2	res;
-
-	res.x = u.x - v.x;
-	res.y = u.y - v.y;
-	return (res);
+	return (key % kt->size);
 }
 
-t_vec3	sub_vec3(t_vec3 u, t_vec3 v)
+bool			kt_ispressed(t_keytable *kt, unsigned int key)
 {
-	t_vec3	res;
+	unsigned int	hash;
+	t_entry			*entry;
 
-	res.x = u.x - v.x;
-	res.y = u.y - v.y;
-	res.z = u.z - v.z;
-	return (res);
-}
-
-t_vec4	sub_vec4(t_vec4 u, t_vec4 v)
-{
-	t_vec4	res;
-
-	res.x = u.x - v.x;
-	res.y = u.y - v.y;
-	res.z = u.z - v.z;
-	res.w = 0;
-	return (res);
+	hash = hashkey(kt, key);
+	entry = kt->table[hash];
+	while (entry->next)
+	{
+		if (entry->key == key)
+		{
+			return (entry->ispressed);
+		}
+		entry = entry->next;
+	}
+	return (false);
 }

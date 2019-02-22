@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vec2_op2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmichaud <gmichaud@student.42,fr>          +#+  +:+       +#+        */
+/*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:44:59 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/02/15 16:58:39 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/02/22 11:15:13 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlxext.h"
+#include "libftmath.h"
 
 t_vec2	v2_v2_mult(t_vec2 u, t_vec2 v)
 {
