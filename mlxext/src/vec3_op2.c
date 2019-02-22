@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3_op2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmichaud <gmichaud@student.42,fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:42:09 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/02/15 13:43:28 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/02/15 16:58:07 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,21 @@ t_vec3	v3_f_mult(t_vec3 v, float f)
 double	v3_dot(t_vec3 u, t_vec3 v)
 {
 	return (u.x * v.x + u.y * v.y + u.z * v.z);
+}
+
+t_vec3	v3_divide(t_vec3 u, t_vec3 v)
+{
+	t_vec3	res;
+
+	res.x = u.x / v.x;
+	res.y = u.y / v.y;
+	res.z = u.z / v.z;
+	return (res);
+}
+
+bool	v3_equals(t_vec3 u, t_vec3 v)
+{
+	return (fequals(u.x, v.x) && fequals(u.y, v.y) && fequals(u.z, v.z));
 }
 
 t_vec3	cross(t_vec3 u, t_vec3 v)

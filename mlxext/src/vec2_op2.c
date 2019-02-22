@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec2_op2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmichaud <gmichaud@student.42,fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:44:59 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/02/15 13:45:36 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/02/15 16:58:39 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,18 @@ t_vec2	v2_f_mult(t_vec2 v, float f)
 double	v2_dot(t_vec2 u, t_vec2 v)
 {
 	return (u.x * v.x + u.y * v.y);
+}
+
+t_vec2	v2_divide(t_vec2 u, t_vec2 v)
+{
+	t_vec2	res;
+
+	res.x = u.x / v.x;
+	res.y = u.y / v.y;
+	return (res);
+}
+
+bool	v2_equals(t_vec2 u, t_vec2 v)
+{
+	return (fequals(u.x, v.x) && fequals(u.y, v.y));
 }

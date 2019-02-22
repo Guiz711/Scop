@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   matrices.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbouchet <hbouchet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmichaud <gmichaud@student.42,fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:38:07 by hbouchet          #+#    #+#             */
-/*   Updated: 2018/03/19 18:38:08 by hbouchet         ###   ########.fr       */
+/*   Updated: 2019/02/15 17:11:58 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vectors.h"
+#include "mlxext.h"
 
 /*
 ** The matrices functions are initializing t_mtx4 structs
@@ -18,30 +18,38 @@
 ** Returns an initialized matrix type struct.
 */
 
-t_mtx4		translate(double t_x, double t_y, double t_z)
+t_mtx4		mtx_identity(void)
 {
 	t_mtx4	mtx;
+	int		i;
+	int		j;
 
-	mtx.a[0] = 1;
-	mtx.a[1] = 0;
-	mtx.a[2] = 0;
-	mtx.a[3] = t_x;
-	mtx.b[0] = 0;
-	mtx.b[1] = 1;
-	mtx.b[2] = 0;
-	mtx.b[3] = t_y;
-	mtx.c[0] = 0;
-	mtx.c[1] = 0;
-	mtx.c[2] = 1;
-	mtx.c[3] = t_z;
-	mtx.d[0] = 0;
-	mtx.d[1] = 0;
-	mtx.d[2] = 0;
-	mtx.d[3] = 1;
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			mtx.elem[i][j] = i == j ? 1 : 0;
+			++j;
+		}
+		++i;
+	}
 	return (mtx);
 }
 
-t_mtx4		rotate(t_axis axis, double pitch)
+t_mtx4		mtx_translation(t_vec3 value)
+{
+	t_mtx4	mtx;
+
+	mtx = mtx_identity();
+	mtx.elem[0][3] = value.x;
+	mtx.elem[1][3] = value.y;
+	mtx.elem[2][3] = value.z;
+	return (mtx);
+}
+
+t_mtx4		mtx_rotation(t_axis axis, double pitch)
 {
 	t_mtx4	mtx;
 
@@ -64,49 +72,14 @@ t_mtx4		rotate(t_axis axis, double pitch)
 	return (mtx);
 }
 
-t_mtx4		scale(double pitch_x, double pitch_y, double pitch_z)
+t_mtx4		scale(t_vec3 factor)
 {
 	t_mtx4	mtx;
 
-	mtx.a[0] = pitch_x;
-	mtx.a[1] = 0;
-	mtx.a[2] = 0;
-	mtx.a[3] = 0;
-	mtx.b[0] = 0;
-	mtx.b[1] = pitch_y;
-	mtx.b[2] = 0;
-	mtx.b[3] = 0;
-	mtx.c[0] = 0;
-	mtx.c[1] = 0;
-	mtx.c[2] = pitch_z;
-	mtx.c[3] = 0;
-	mtx.d[0] = 0;
-	mtx.d[1] = 0;
-	mtx.d[2] = 0;
-	mtx.d[3] = 1;
-	return (mtx);
-}
-
-t_mtx4		identity(void)
-{
-	t_mtx4	mtx;
-
-	mtx.a[0] = 1;
-	mtx.a[1] = 0;
-	mtx.a[2] = 0;
-	mtx.a[3] = 0;
-	mtx.b[0] = 0;
-	mtx.b[1] = 1;
-	mtx.b[2] = 0;
-	mtx.b[3] = 0;
-	mtx.c[0] = 0;
-	mtx.c[1] = 0;
-	mtx.c[2] = 1;
-	mtx.c[3] = 0;
-	mtx.d[0] = 0;
-	mtx.d[1] = 0;
-	mtx.d[2] = 0;
-	mtx.d[3] = 1;
+	mtx = mtx_identity();
+	mtx.elem[0][0] = factor.x;
+	mtx.elem[1][1] = factor.y;
+	mtx.elem[2][2] = factor.z;
 	return (mtx);
 }
 
