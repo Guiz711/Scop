@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 19:50:25 by jgourdin          #+#    #+#             */
-/*   Updated: 2019/02/22 17:05:06 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/03/01 20:16:52 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,21 @@ t_quat	quat_lerp(t_quat start, t_quat end, float t)
 	result.z = invt * start.z + t * end.z;
 	result.w = invt * start.w + t * end.w;
 	return (quat_normalize(result));
+}
+
+bool	quat_equal(t_quat u, t_quat v)
+{
+	return (fequals(u.x, v.x) && fequals(u.y, v.y) && fequals(u.z, v.z)
+		&& fequals(u.w, v.w));
+}
+
+t_quat	quat_identity()
+{
+	t_quat	result;
+
+	result.x = 0;
+	result.y = 0;
+	result.z = 0;
+	result.w = 1;
+	return (result);
 }

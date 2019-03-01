@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 19:02:57 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/02/22 19:03:26 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/03/01 15:59:28 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_entry	*create_entry(int key, bool ispressed)
 	return (new);
 }
 
-static void		*add_entry(t_entry **list, t_entry *new)
+static void		add_entry(t_entry **list, t_entry *new)
 {
 	new->next = *list;
 	*list = new;
@@ -37,7 +37,7 @@ bool			kt_updatekey(t_keytable *kt, unsigned int key, bool ispressed)
 
 	hash = hashkey(kt, key);
 	entry = kt->table[hash];
-	while (entry->next)
+	while (entry)
 	{
 		if (entry->key == key)
 		{

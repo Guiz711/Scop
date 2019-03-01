@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 20:07:48 by jgourdin          #+#    #+#             */
-/*   Updated: 2019/02/22 15:15:03 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/03/01 20:11:42 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,11 +169,13 @@ t_mtx4			quat_to_mtx(t_vec4 q);
 ** Quaternion functions
 */
 
+t_quat			quat_identity();
 double			quat_norm(t_quat q);
 t_quat			quat_normalize(t_quat q);
 t_quat			quat_mult(t_quat q1, t_quat q2);
 t_quat			axisangle_to_quat(t_vec4 axis, double angle);
 t_quat			euler_to_quat(t_vec3 rot);
 t_quat			quat_lerp(t_quat start, t_quat end, float t);
+bool			quat_equal(t_quat u, t_quat v);
 
 #endif

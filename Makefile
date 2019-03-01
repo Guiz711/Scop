@@ -6,7 +6,7 @@
 #    By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/19 14:03:15 by jgourdin          #+#    #+#              #
-#    Updated: 2019/02/22 11:17:42 by gmichaud         ###   ########.fr        #
+#    Updated: 2019/03/01 15:52:39 by gmichaud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ CFLAGS = #-Wall -Wextra -Werror
 
 SRC_PATH = src
 
-SRC_NAME = error.c shader.c shader_error.c main.c 
+SRC_NAME = error.c shader.c shader_error.c keytable_alloc.c keytable_update.c \
+	keytable_utils.c init_env.c init_scene.c loop.c inputs.c main.c
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 

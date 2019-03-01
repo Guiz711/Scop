@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 19:01:35 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/02/22 19:05:29 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/02/23 14:17:42 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_keytable		*kt_create(unsigned int size)
 	t_keytable *new;
 
 	if (size == 0)
-		size = DEFAULT_SIZE;
+		return (NULL);
 	if (!(new = (t_keytable*)malloc(sizeof(t_keytable))))
 		return (NULL);
 	if (!(new->table = (t_entry**)ft_memalloc(sizeof(t_entry*) * size)))

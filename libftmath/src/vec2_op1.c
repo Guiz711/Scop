@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:43:46 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/02/22 13:07:17 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:11:32 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ t_vec2	v2_add(t_vec2 u, t_vec2 v)
 	return (res);
 }
 
-t_vec2	v2_substract(t_vec2 u, t_vec2 v)
+t_vec2	v2_substract(t_vec2 lhs, t_vec2 rhs)
 {
 	t_vec2	res;
 
-	res.x = u.x - v.x;
-	res.y = u.y - v.y;
+	res.x = lhs.x - rhs.x;
+	res.y = lhs.y - rhs.y;
 	return (res);
 }
