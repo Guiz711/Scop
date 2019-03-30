@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keytable_utils.c                                   :+:      :+:    :+:   */
+/*   obj_parser.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/22 18:13:13 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/03/08 15:50:26 by gmichaud         ###   ########.fr       */
+/*   Created: 2019/03/08 19:35:22 by gmichaud          #+#    #+#             */
+/*   Updated: 2019/03/29 14:09:34 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "keytable.h"
+#ifndef OBJ_PARSER_H
+# define OBJ_PARSER_H
 
-unsigned int	hashkey(t_keytable *kt, unsigned int key)
+# define VERTEX_PREFIX "v "
+# define FACE_PREFIX "f "
+
+typedef enum	e_tkn_types
 {
-	return (key % kt->size);
-}
+	vertex,
+	normal,
+	texture,
+	face
+}				t_tkn_types;
 
-bool			kt_pressed(t_keytable *kt, unsigned int key)
-{
-	unsigned int	hash;
-	t_entry			*entry;
+char		*read_file(char *file_name);
 
-	hash = hashkey(kt, key);
-	entry = kt->table[hash];
-	while (entry)
-	{
-		if (entry->key == key)
-		{
-			return (entry->ispressed);
-		}
-		entry = entry->next;
-	}
-	return (false);
-}
+#endif

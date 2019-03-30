@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 15:40:01 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/03/01 20:38:40 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/03/29 12:08:53 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@
 # include "keytable.h"
 # include "shader.h"
 # include "mlx_events.h"
+# include "obj_parser.h"
 
 typedef struct		s_opengl
 {
 	uint32_t		vao;
 	uint32_t		vbo;
+	uint32_t		ebo;
 	uint32_t		shader_program;
 }					t_opengl;
 
@@ -54,16 +56,28 @@ typedef struct		s_window
 	int				height;
 }					t_window;
 
-typedef struct		s_vertice
+typedef struct		s_vertex
 {
 	t_vec3			pos;
-	t_vec3			color;
-}					t_vertice;
+	// t_vec3			color;
+}					t_vertex;
+
+typedef struct		s_vertex_array
+{
+	t_vertex		*data;
+	size_t			size;
+}					t_vertex_array;
+
+typedef struct		s_indice_array
+{
+	unsigned int	*data;
+	size_t			size;
+}					t_indice_array;
 
 typedef struct		s_object
 {
-	t_vertice		*vertices;
-	size_t			size;
+	t_vertex_array	vertices;
+	t_indice_array	indices;
 	// t_mtx4			mtx;
 	t_quat			rotation;
 }					t_object;
@@ -86,4 +100,7 @@ int					key_release(int keycode, void *args);
 int					mouse_press(int button, int x, int y, void *args);
 int					mouse_release(int button, int x, int y, void *args);
 
+bool				mouse_pressed(t_mouse mouse, unsigned int button);
+bool				mouse_released(t_mouse mouse, unsigned int button);
+bool				mouse_just_pressed(t_mouse mouse, unsigned int button);
 #endif

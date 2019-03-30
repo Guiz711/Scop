@@ -6,15 +6,11 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 16:58:57 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/03/01 15:55:23 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/03/29 11:56:55 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
-
-// unsigned int indices[] = {
-// 	0, 1, 2
-// };
 
 double	get_time(void)
 {
@@ -34,13 +30,14 @@ int main(int argc, char **argv)
 	// 	return (0);
 	// }
 
-	init_env(&env);
-	mlx_hook(env.window.ptr, MOTION_NOTIFY, 0, mouse_move, (void*)&env);
-	mlx_hook(env.window.ptr, KEY_PRESS, 0, key_press, (void*)&env);
-	mlx_hook(env.window.ptr, KEY_RELEASE, 0, key_release, (void*)&env);
-	mlx_hook(env.window.ptr, BUTTON_PRESS, 0, mouse_press, (void*)&env);
-	mlx_hook(env.window.ptr, BUTTON_RELEASE, 0, mouse_release, (void*)&env);
-	mlx_loop_hook(env.window.init, &update, (void*)&env);
-	mlx_loop(env.window.init);
+	read_file(argv[1]);
+	// init_env(&env);
+	// mlx_hook(env.window.ptr, MOTION_NOTIFY, 0, mouse_move, (void*)&env);
+	// mlx_hook(env.window.ptr, KEY_PRESS, 0, key_press, (void*)&env);
+	// mlx_hook(env.window.ptr, KEY_RELEASE, 0, key_release, (void*)&env);
+	// mlx_hook(env.window.ptr, BUTTON_PRESS, 0, mouse_press, (void*)&env);
+	// mlx_hook(env.window.ptr, BUTTON_RELEASE, 0, mouse_release, (void*)&env);
+	// mlx_loop_hook(env.window.init, &update, (void*)&env);
+	// mlx_loop(env.window.init);
 	return (0);
 }
