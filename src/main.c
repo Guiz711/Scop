@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 16:58:57 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/03/29 11:56:55 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/05/24 16:05:31 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int main(int argc, char **argv)
 	// 	return (0);
 	// }
 
-	read_file(argv[1]);
+	// read_file(argv[1]);
+	parse_obj_file(argv[1]);
 	// init_env(&env);
 	// mlx_hook(env.window.ptr, MOTION_NOTIFY, 0, mouse_move, (void*)&env);
 	// mlx_hook(env.window.ptr, KEY_PRESS, 0, key_press, (void*)&env);

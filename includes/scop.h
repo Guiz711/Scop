@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 15:40:01 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/03/29 12:08:53 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/05/24 18:54:48 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct		s_indice_array
 typedef struct		s_object
 {
 	t_vertex_array	vertices;
-	t_indice_array	indices;
+	t_vertex_array	indices;
 	// t_mtx4			mtx;
 	t_quat			rotation;
 }					t_object;
@@ -93,6 +93,8 @@ typedef struct		s_env
 t_object			*init_object(void);
 int					update(void *args);
 int					init_env(t_env *env);
+
+int					parse_obj_file(char *file_name);
 
 int					mouse_move(int x, int y, void *args);
 int					key_press(int keycode, void *args);

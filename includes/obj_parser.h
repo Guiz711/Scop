@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 19:35:22 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/03/29 14:09:34 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/05/24 17:42:06 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 typedef enum	e_tkn_types
 {
+	none,
 	vertex,
 	normal,
 	texture,
