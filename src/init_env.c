@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 14:09:25 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/03/29 11:57:42 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/05/30 18:52:49 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ int		init_opengl(t_opengl *opengl, t_object *object)
 	return (1);
 }
 
-int		init_env(t_env *env)
+int		init_env(t_env *env, char *file)
 {
 	if (!init_window(&env->window, 1080, 920))
 		return (0);
 	if (!init_inputs(&env->inputs))
 		return (0);
-	if (!(env->object = init_object()))
+	if (!(env->object = parse_obj_file(file)))
 		return (0);
 	if (!init_opengl(&env->opengl, env->object))
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 16:40:44 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/05/24 19:38:33 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/05/30 18:50:17 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,33 +39,38 @@ void		free_dblarray(void ***ptr)
 	}
 }
 
-int 		parse_vertex(char *definition, t_vertex_array *vert)
+int 		parse_vertex(char *definition, t_parser *parser)
 {
 	char		*token;
-	t_vertex	vertex;
+	t_vec3		vec;
 	int			len;
+	t_vec3_lst	*new;
 
+	len = 0 ;
 	while ((token = strsep(&definition, " ")))
 	{
 		if (len >= 3)
 			break;
-		vertex.pos.elem[len] = atof(token);
+		vec.elem[len] = atof(token);
 		++len;
 	}
 	if (len < 3)
 		return (-1);
-	vert->data = realloc(vert->data, (vert->size + 1) * sizeof(t_vertex));
-	vert->data[vert->size] = vertex;
-	++vert->size;
+	if (!(new = vec3_lst_new(vec)))
+		return (-1);
+	vec3_lst_add(&(parser->vertices), new);
+	++(parser->vertices_len);
 	return (0);
 }
 
-int 		parse_face(char *definition, t_vertex_array *indices)
+int 		parse_face(char *definition, t_parser *parser)
 {
 	char		*token;
 	t_vec4		face;
 	int			len;
+	t_vec3_lst	*new;
 
+	len = 0 ;
 	while ((token = strsep(&definition, " ")))
 	{
 		if (len >= 4)
@@ -75,18 +80,16 @@ int 		parse_face(char *definition, t_vertex_array *indices)
 	}
 	if (len < 3)
 		return (-1);
-	if (len == 3)
+	if (!(new = vec3_lst_new(init_vec3(face.x, face.y, face.z))))
+		return (-1);
+	vec3_lst_add(&(parser->indices), new);
+	++(parser->indices_len);
+	if (len > 3)
 	{
-		indices->data = realloc(indices->data, (indices->size + 1) * sizeof(t_vertex));
-		indices->data[indices->size].pos = init_vec3(face.x, face.y, face.z);
-		++indices->size;
-	}
-	else
-	{
-		indices->data = realloc(indices->data, (indices->size + 2) * sizeof(t_vertex));
-		indices->data[indices->size].pos = init_vec3(face.x, face.y, face.z);
-		indices->data[indices->size + 1].pos = init_vec3(face.y, face.z, face.w);
-		indices->size += 2;
+		if (!(new = vec3_lst_new(init_vec3(face.y, face.z, face.w))))
+			return (-1);
+		vec3_lst_add(&(parser->indices), new);
+		++(parser->indices_len);
 	}
 	return (0);
 }
@@ -100,7 +103,7 @@ t_tkn_types	find_definition_type(char *token)
 	return (none);
 }
 
-int		parse_definition(char *definition, t_object *obj)
+int		parse_definition(char *definition, t_parser *parser)
 {
 	char		*token;
 	t_tkn_types	type;
@@ -110,9 +113,9 @@ int		parse_definition(char *definition, t_object *obj)
 	{
 		type = find_definition_type(token);
 		if (type == vertex)
-			parse_vertex(definition, &obj->vertices);
+			parse_vertex(definition, parser);
 		else if (type == face)
-			parse_face(definition, &obj->indices);
+			parse_face(definition, parser);
 	}
 	return 0;
 }
@@ -124,50 +127,68 @@ t_object	*init_object(void)
 
 	if (!(obj = (t_object*)malloc(sizeof(t_object))))
 		return (NULL);
-	// if (!(obj->vertices.data = (t_vertex*)malloc(sizeof(t_vertex) * (sizeof(g_vertices) / 3))))
-	// {
-	// 	free(obj);
-	// 	return (NULL);
-	// }
-	// i = 0;
-	// while (i < 4)
-	// {
-	// 	obj->vertices.data[i].pos = init_vec3(g_vertices[i * 3], g_vertices[i * 3 + 1], g_vertices[i * 3 + 2]);
-	// 	++i;
-	// }
-	// if (!(obj->indices.data = (unsigned int*)malloc(sizeof(unsigned int) * 6)))
-	// 	return (NULL);
-	// i = 0;
-	// while (i < 6)
-	// {
-	// 	obj->indices.data[i] = indices[i];
-	// 	++i;
-	// }
+	obj->vertices.data = NULL;
 	obj->vertices.size = 0;
+	obj->indices.data = NULL;
 	obj->indices.size = 0;
-	// obj->mtx = mtx_identity();
 	obj->rotation = quat_identity();
 	return (obj);
 }
 
-int		parse_obj_file(char *file_name)
+int		fill_object(t_object *obj, t_parser *parser)
+{
+	int			i;
+	t_vec3_lst	*tmp;
+
+	if (!(obj->vertices.data = malloc(sizeof(t_vertex) * parser->vertices_len)))
+		return (-1);
+	obj->vertices.size = parser->vertices_len;
+	tmp = parser->vertices;
+	i = parser->vertices_len - 1;
+	while (i >= 0)
+	{
+		obj->vertices.data[i].pos = tmp->data;
+		tmp = tmp->next;
+		--i;
+	}
+	if (!(obj->indices.data = malloc(sizeof(t_vertex) * parser->indices_len)))
+		return (-1);
+	obj->indices.size = parser->indices_len;
+	tmp = parser->indices;
+	i = parser->indices_len - 1;
+	while (i >= 0)
+	{
+		obj->indices.data[i].pos = tmp->data;
+		tmp = tmp->next;
+		--i;
+	}
+	return (0);
+}
+
+t_object	*parse_obj_file(char *file_name)
 {
 	char		*original;
 	char		*rawdata;
 	char		*line;
 	t_object	*obj;
+	t_parser	parser;
 
+	parser.vertices = NULL;
+	parser.indices = NULL;
+	parser.vertices_len = 0;
+	parser.indices_len = 0;
 	if (!(rawdata = read_file(file_name)))
-		return (0);
+		return (NULL);
 	original = rawdata;
 	obj = init_object();
 	line  = NULL;
 	while ((line = strsep(&rawdata, "\n")))
 	{
-		parse_definition(line, obj);
+		parse_definition(line, &parser);
 	}
+	fill_object(obj, &parser);
 	free(original);
-	return (1);
+	return (obj);
 }
 
 char		*read_file(char *file_name)

@@ -6,13 +6,13 @@
 #    By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/19 14:03:15 by jgourdin          #+#    #+#              #
-#    Updated: 2019/03/29 12:10:04 by gmichaud         ###   ########.fr        #
+#    Updated: 2019/05/30 18:19:29 by gmichaud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = scop
 
-SRC_NAME = error.c shader.c shader_error.c keytable_alloc.c keytable_update.c \
+SRC_NAME = vec3_lst.c error.c shader.c shader_error.c keytable_alloc.c keytable_update.c \
 	keytable_utils.c init_env.c init_scene.c loop.c inputs.c main.c
 
 INC_NAME = scop.h shader.h error.h

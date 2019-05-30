@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 15:40:01 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/05/24 18:54:48 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/05/30 18:53:06 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,19 @@ typedef struct		s_vertex_array
 	size_t			size;
 }					t_vertex_array;
 
-typedef struct		s_indice_array
+typedef struct		s_vec3_lst
 {
-	unsigned int	*data;
-	size_t			size;
-}					t_indice_array;
+	t_vec3				data;
+	struct s_vec3_lst	*next;
+}					t_vec3_lst;
+
+typedef struct		s_parser
+{
+	t_vec3_lst		*vertices;
+	size_t			vertices_len;
+	t_vec3_lst		*indices;
+	size_t			indices_len;
+}					t_parser;
 
 typedef struct		s_object
 {
@@ -92,9 +100,13 @@ typedef struct		s_env
 
 t_object			*init_object(void);
 int					update(void *args);
-int					init_env(t_env *env);
+int					init_env(t_env *env, char *file);
 
-int					parse_obj_file(char *file_name);
+t_vec3_lst			*vec3_lst_new(t_vec3 content);
+void				vec3_lst_add(t_vec3_lst **lst, t_vec3_lst *new);
+void				vec3_lst_del(t_vec3_lst **lst);
+
+t_object			*parse_obj_file(char *file_name);
 
 int					mouse_move(int x, int y, void *args);
 int					key_press(int keycode, void *args);
