@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/21 13:05:43 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/02/22 17:50:08 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/06/01 13:43:14 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,31 @@ t_vec3	init_vec3(float x, float y, float z)
 	return (dest);
 }
 
+t_vec3i	init_vec3i(int x, int y, int z)
+{
+	t_vec3i	dest;
+
+	dest.x = x;
+	dest.y = y;
+	dest.z = z;
+	return (dest);
+}
+
 t_vec4	init_vec4(float x, float y, float z, float w)
 {
 	t_vec4	dest;
 	
+	dest.x = x;
+	dest.y = y;
+	dest.z = z;
+	dest.w = w;
+	return (dest);
+}
+
+t_vec4i	init_vec4i(int x, int y, int z, int w)
+{
+	t_vec4i	dest;
+
 	dest.x = x;
 	dest.y = y;
 	dest.z = z;

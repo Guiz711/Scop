@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 20:07:48 by jgourdin          #+#    #+#             */
-/*   Updated: 2019/03/29 12:09:49 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/06/01 13:43:32 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,29 @@ typedef union	u_vec4
 	};
 }				t_vec4;
 
+typedef union	u_vec3i
+{
+	int			elem[3];
+	struct
+	{
+		int		x;
+		int		y;
+		int		z;
+	};
+}				t_vec3i;
+
+typedef union	u_vec4i
+{
+	int			elem[4];
+	struct
+	{
+		int		x;
+		int		y;
+		int		z;
+		int		w;
+	};
+}				t_vec4i;
+
 typedef struct	s_mtx4
 {
 	float		elem[4][4];
@@ -117,6 +140,8 @@ float			fisqrt(float n);
 t_vec2			init_vec2(float x, float y);
 t_vec3			init_vec3(float x, float y, float z);
 t_vec4			init_vec4(float x, float y, float z, float w);
+t_vec3i			init_vec3i(int x, int y, int z);
+t_vec4i			init_vec4i(int x, int y, int z, int w);
 t_vec4			vec3_to_vec4(t_vec3 src, double w);
 
 float			v2_magnitude(t_vec2 v);

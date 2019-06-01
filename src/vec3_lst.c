@@ -6,19 +6,30 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 14:59:58 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/05/30 18:19:46 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/06/01 13:45:49 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-t_vec3_lst	*vec3_lst_new(t_vec3 content)
+t_vec3_lst	*vec3f_lst_new(t_vec3 content)
 {
 	t_vec3_lst	*new;
 
 	if (!(new = malloc(sizeof(t_vec3_lst))))
 		return NULL;
-	new->data = content;
+	new->dataf = content;
+	new->next = NULL;
+	return (new);
+}
+
+t_vec3_lst	*vec3i_lst_new(t_vec3i content)
+{
+	t_vec3_lst	*new;
+
+	if (!(new = malloc(sizeof(t_vec3_lst))))
+		return NULL;
+	new->datai = content;
 	new->next = NULL;
 	return (new);
 }

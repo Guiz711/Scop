@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 15:40:01 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/05/30 18:53:06 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/06/01 13:49:33 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,16 @@ typedef struct		s_vertex_array
 	size_t			size;
 }					t_vertex_array;
 
+typedef struct		s_faces_array
+{
+	t_vec3i			*data;
+	size_t			size;
+}					t_faces_array;
+
 typedef struct		s_vec3_lst
 {
-	t_vec3				data;
+	t_vec3				dataf;
+	t_vec3i				datai;
 	struct s_vec3_lst	*next;
 }					t_vec3_lst;
 
@@ -85,7 +92,7 @@ typedef struct		s_parser
 typedef struct		s_object
 {
 	t_vertex_array	vertices;
-	t_vertex_array	indices;
+	t_faces_array	indices;
 	// t_mtx4			mtx;
 	t_quat			rotation;
 }					t_object;
@@ -102,7 +109,8 @@ t_object			*init_object(void);
 int					update(void *args);
 int					init_env(t_env *env, char *file);
 
-t_vec3_lst			*vec3_lst_new(t_vec3 content);
+t_vec3_lst			*vec3f_lst_new(t_vec3 content);
+t_vec3_lst			*vec3i_lst_new(t_vec3i content);
 void				vec3_lst_add(t_vec3_lst **lst, t_vec3_lst *new);
 void				vec3_lst_del(t_vec3_lst **lst);
 

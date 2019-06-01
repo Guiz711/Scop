@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 16:40:44 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/05/30 18:50:17 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/06/01 14:04:49 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int 		parse_vertex(char *definition, t_parser *parser)
 	}
 	if (len < 3)
 		return (-1);
-	if (!(new = vec3_lst_new(vec)))
+	if (!(new = vec3f_lst_new(vec)))
 		return (-1);
 	vec3_lst_add(&(parser->vertices), new);
 	++(parser->vertices_len);
@@ -66,7 +66,7 @@ int 		parse_vertex(char *definition, t_parser *parser)
 int 		parse_face(char *definition, t_parser *parser)
 {
 	char		*token;
-	t_vec4		face;
+	t_vec4i		face;
 	int			len;
 	t_vec3_lst	*new;
 
@@ -75,18 +75,18 @@ int 		parse_face(char *definition, t_parser *parser)
 	{
 		if (len >= 4)
 			break;
-		face.elem[len] = atof(token);
+		face.elem[len] = atoi(token) - 1;
 		++len;
 	}
 	if (len < 3)
 		return (-1);
-	if (!(new = vec3_lst_new(init_vec3(face.x, face.y, face.z))))
+	if (!(new = vec3i_lst_new(init_vec3i(face.x, face.y, face.z))))
 		return (-1);
 	vec3_lst_add(&(parser->indices), new);
 	++(parser->indices_len);
 	if (len > 3)
 	{
-		if (!(new = vec3_lst_new(init_vec3(face.y, face.z, face.w))))
+		if (!(new = vec3i_lst_new(init_vec3i(face.y, face.z, face.w))))
 			return (-1);
 		vec3_lst_add(&(parser->indices), new);
 		++(parser->indices_len);
@@ -147,18 +147,18 @@ int		fill_object(t_object *obj, t_parser *parser)
 	i = parser->vertices_len - 1;
 	while (i >= 0)
 	{
-		obj->vertices.data[i].pos = tmp->data;
+		obj->vertices.data[i].pos = tmp->dataf;
 		tmp = tmp->next;
 		--i;
 	}
-	if (!(obj->indices.data = malloc(sizeof(t_vertex) * parser->indices_len)))
+	if (!(obj->indices.data = malloc(sizeof(t_vec3i) * parser->indices_len)))
 		return (-1);
 	obj->indices.size = parser->indices_len;
 	tmp = parser->indices;
 	i = parser->indices_len - 1;
 	while (i >= 0)
 	{
-		obj->indices.data[i].pos = tmp->data;
+		obj->indices.data[i] = tmp->datai;
 		tmp = tmp->next;
 		--i;
 	}
