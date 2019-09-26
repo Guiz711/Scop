@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 18:04:53 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/03/08 16:46:49 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/09/25 17:43:47 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ bool				kt_updatekey(t_keytable *kt, unsigned int key, bool ispressed);
 bool				kt_pressed(t_keytable *kt, unsigned int key);
 
 unsigned int		hashkey(t_keytable *kt, unsigned int key);
-
 
 #endif

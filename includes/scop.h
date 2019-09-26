@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 15:40:01 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/06/01 13:49:33 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/09/26 18:11:48 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # include "shader.h"
 # include "mlx_events.h"
 # include "obj_parser.h"
+
+#define WIN_W 1440
+#define WIN_H 750
 
 typedef struct		s_opengl
 {
@@ -59,7 +62,8 @@ typedef struct		s_window
 typedef struct		s_vertex
 {
 	t_vec3			pos;
-	// t_vec3			color;
+	t_vec3			color;
+	t_vec3			tex;
 }					t_vertex;
 
 typedef struct		s_vertex_array
@@ -74,26 +78,11 @@ typedef struct		s_faces_array
 	size_t			size;
 }					t_faces_array;
 
-typedef struct		s_vec3_lst
-{
-	t_vec3				dataf;
-	t_vec3i				datai;
-	struct s_vec3_lst	*next;
-}					t_vec3_lst;
-
-typedef struct		s_parser
-{
-	t_vec3_lst		*vertices;
-	size_t			vertices_len;
-	t_vec3_lst		*indices;
-	size_t			indices_len;
-}					t_parser;
-
 typedef struct		s_object
 {
 	t_vertex_array	vertices;
-	t_faces_array	indices;
-	// t_mtx4			mtx;
+	// t_faces_array	indices;
+	t_mtx4			model;
 	t_quat			rotation;
 }					t_object;
 
@@ -103,6 +92,8 @@ typedef struct		s_env
 	t_opengl		opengl;
 	t_input			inputs;
 	t_object		*object;
+	t_mtx4			view;
+	t_mtx4			projection;
 }					t_env;
 
 t_object			*init_object(void);
@@ -125,4 +116,7 @@ int					mouse_release(int button, int x, int y, void *args);
 bool				mouse_pressed(t_mouse mouse, unsigned int button);
 bool				mouse_released(t_mouse mouse, unsigned int button);
 bool				mouse_just_pressed(t_mouse mouse, unsigned int button);
+
+void				quit(void *env);
+
 #endif

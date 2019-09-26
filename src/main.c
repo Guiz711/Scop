@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 16:58:57 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/05/30 18:53:11 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/09/25 15:10:42 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ int main(int argc, char **argv)
 	// }
 
 	init_env(&env, argv[1]);
-	mlx_hook(env.window.ptr, MOTION_NOTIFY, 0, mouse_move, (void*)&env);
-	mlx_hook(env.window.ptr, KEY_PRESS, 0, key_press, (void*)&env);
-	mlx_hook(env.window.ptr, KEY_RELEASE, 0, key_release, (void*)&env);
-	mlx_hook(env.window.ptr, BUTTON_PRESS, 0, mouse_press, (void*)&env);
-	mlx_hook(env.window.ptr, BUTTON_RELEASE, 0, mouse_release, (void*)&env);
+	mlx_hook(env.window.ptr, DESTROY_NOTIFY, 0L, quit, (void*)&env);
+	mlx_hook(env.window.ptr, MOTION_NOTIFY, POINTER_MOTION_MASK, mouse_move, (void*)&env);
+	mlx_hook(env.window.ptr, KEY_PRESS, KEY_PRESS_MASK, key_press, (void*)&env);
+	mlx_hook(env.window.ptr, KEY_RELEASE, KEY_RELEASE_MASK, key_release, (void*)&env);
+	mlx_hook(env.window.ptr, BUTTON_PRESS, BUTTON_PRESS_MASK, mouse_press, (void*)&env);
+	mlx_hook(env.window.ptr, BUTTON_RELEASE, BUTTON_RELEASE_MASK, mouse_release, (void*)&env);
 	mlx_loop_hook(env.window.init, &update, (void*)&env);
 	mlx_loop(env.window.init);
 	return (0);

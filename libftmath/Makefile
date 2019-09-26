@@ -6,7 +6,7 @@
 #    By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 15:56:40 by gmichaud          #+#    #+#              #
-#    Updated: 2019/02/22 15:17:26 by gmichaud         ###   ########.fr        #
+#    Updated: 2019/09/26 18:54:04 by gmichaud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC_PATH = src
 
 SRC_NAME = float_op.c vec_init.c \
 	vec2_op1.c vec2_op2.c vec3_op1.c vec3_op2.c vec4_op1.c vec4_op2.c  \
-	matrices.c matrices_op.c quaternions.c quaternions_op.c
+	matrices.c matrices_op.c quaternions.c quaternions_op.c projection.c
 
 CC = clang
 

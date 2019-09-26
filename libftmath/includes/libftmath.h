@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 20:07:48 by jgourdin          #+#    #+#             */
-/*   Updated: 2019/06/01 13:43:32 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/09/26 18:50:46 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,8 @@ t_mtx4			mtx_scale(t_vec3 factor);
 t_mtx4			mtx_transpose(t_mtx4 matrix);
 t_mtx4			mtx4_mult(t_mtx4 lhs, t_mtx4 rhs);
 t_mtx4			quat_to_mtx(t_vec4 q);
+t_mtx4			orthographic(float top, float right, float near, float far);
+t_mtx4			perspective(float fovy, float aspect, float near, float far);
 
 /*
 ** Quaternion functions
