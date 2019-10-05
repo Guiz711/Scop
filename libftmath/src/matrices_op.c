@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 11:20:46 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/02/22 15:09:56 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/10/05 14:59:18 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_mtx4			mtx4_mult(t_mtx4 lhs, t_mtx4 rhs)
 			sum = 0;
 			while (cur < 4)
 			{
-				sum += lhs.elem[cur][row] + rhs.elem[col][cur];
+				sum += lhs.elem[cur][row] * rhs.elem[col][cur];
 				++cur;
 			}
 			result.elem[col][row] = sum;

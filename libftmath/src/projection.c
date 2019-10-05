@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 18:26:04 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/09/26 18:50:37 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/10/05 16:10:55 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_mtx4			perspective(float fovy, float aspect, float near, float far)
 	float	top;
 	float	right;
 
-	top = near * tanf(fovy * (M_PI / 360));
+	top = near * tanf(fovy * DEG2RAD);
 	right = top * aspect;
 	m = ft_frustum_mtx(top, right, near, far);
 	return (m);

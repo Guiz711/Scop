@@ -6,13 +6,13 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 17:50:31 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/09/26 18:51:14 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/10/05 15:01:36 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-void quit(void *args)
+int quit(void *args)
 {
 	t_env	*env;
 
@@ -21,6 +21,7 @@ void quit(void *args)
 	glDeleteBuffers(1, &env->opengl.vbo);
 	mlx_destroy_window(env->window.init, env->window.ptr);
 	exit(EXIT_SUCCESS);
+	return (0);
 }
 
 void	update_input(t_env *env)
@@ -66,6 +67,7 @@ int		update(void *args)
 	int		success;
 	char	info[512];
 	t_quat	q;
+	t_mtx4	model_final;
 
 	env = (t_env*)args;
 
@@ -75,8 +77,8 @@ int		update(void *args)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	// set_uniform_float(env->shader_program, "test", sin(get_time()) / 2.0f + 0.5f);
 	// matrix = mtx_translation(init_vec3(0, 0, 0));
-	env->object->model = update_mvt(env);
-	set_uniform_mat4(env->opengl.shader_program, "model", (float*)&env->object->model);
+	model_final = mtx4_mult(env->object->model, update_mvt(env));
+	set_uniform_mat4(env->opengl.shader_program, "model", (float*)&model_final);
 	set_uniform_mat4(env->opengl.shader_program, "view", (float*)&env->view);
 	set_uniform_mat4(env->opengl.shader_program, "projection", (float*)&env->projection);
 	glBindVertexArray(env->opengl.vao);

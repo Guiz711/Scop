@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 20:07:48 by jgourdin          #+#    #+#             */
-/*   Updated: 2019/09/26 18:50:46 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/10/05 16:10:11 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <float.h>
 # include <stdint.h>
 
-# define DEG2RAD (M_PI * 2.0f / 360.0f)
+# define DEG2RAD (M_PI / 180.0f)
 
 typedef enum	e_axis
 {

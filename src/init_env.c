@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 14:09:25 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/09/26 19:11:29 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/10/05 16:31:35 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		init_env(t_env *env, char *file)
 		return (0);
 	if (!init_opengl(&env->opengl, env->object))
 		return (0);
-	env->view = mtx_translation(init_vec3(0.0f, 0.0f, -250.0f));
-	env->projection = perspective(45.0f * DEG2RAD, env->window.width / env->window.height, 100.0f, 500.0f);
+	env->view = mtx_translation(init_vec3(0.0f, 0.0f, -25.0f));
+	env->projection = perspective(45.0f, env->window.width / env->window.height, 1.0f, 50.0f);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 15:40:01 by gmichaud          #+#    #+#             */
-/*   Updated: 2019/09/26 18:11:48 by gmichaud         ###   ########.fr       */
+/*   Updated: 2019/10/05 15:18:01 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "mlx_events.h"
 # include "obj_parser.h"
 
-#define WIN_W 1440
+#define WIN_W 750 //1440
 #define WIN_H 750
 
 typedef struct		s_opengl
@@ -117,6 +117,6 @@ bool				mouse_pressed(t_mouse mouse, unsigned int button);
 bool				mouse_released(t_mouse mouse, unsigned int button);
 bool				mouse_just_pressed(t_mouse mouse, unsigned int button);
 
-void				quit(void *env);
+int					quit(void *env);
 
 #endif
